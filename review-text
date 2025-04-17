@@ -1,0 +1,68 @@
+#!/bin/bash
+#
+# Script to review selected text with ChatGPT and preserve the original writing style.
+# Dependencies:
+# - xsel
+# - curl
+#
+# Visit our Git repository: https://github.com/fberbert/gpt-review-text
+# License: MIT
+# Maintainer: Fábio Berbert de Paula <fberbert@gmail.com>
+
+# Configuration: Import API_KEY from .env file in the current directory
+cd "$(dirname "$0")" || exit 1
+if [ -f ".env" ]; then
+    source .env
+else
+    echo ".env file not found. Please create it with your OpenAI API key."
+    exit 1
+fi
+
+# define the model to use
+MODEL="gpt-4.1-nano"
+
+# Dependencies
+DEPENDENCIES=(xsel curl)
+
+for DEPENDENCY in "${DEPENDENCIES[@]}"; do
+    if ! command -v "$DEPENDENCY" &> /dev/null; then
+        echo "$DEPENDENCY is not installed. Aborting."
+        exit 1
+    fi
+done
+
+# Get selected text from clipboard
+SELECTED_TEXT=$(xsel -p)
+
+if [ -z "$SELECTED_TEXT" ]; then
+    echo "No selected text found. Aborting."
+    exit 1
+fi
+
+# Remove the message:
+# \ No newline at end of selection
+SELECTED_TEXT=$(echo "$SELECTED_TEXT" | sed 's/\\ No newline at end of selection//g')
+
+# Building the prompt
+PROMPT="Review the text, keep the writing style as much as possible in order to humanize the text:\n\n$SELECTED_TEXT"
+
+echo -e "$PROMPT"
+echo
+
+# Create JSON for API call
+JSON_PAYLOAD=$(jq -cn --arg content "$PROMPT" --arg model "$MODEL" '{model: $model, messages: [{role: "user", content: $content}]}')
+
+# Call the OpenAI API
+
+REVIEWED_TEXT=$(curl -s https://api.openai.com/v1/chat/completions \
+-H "Content-Type: application/json" \
+    -H "Authorization: Bearer $API_KEY" \
+-d "$JSON_PAYLOAD" | jq -r '.choices[0].message.content')
+
+# Copy the result to the clipboard
+echo "$REVIEWED_TEXT" | xsel -ib
+
+# Paste the reviewed text where the original text was selected (Ctrl+V)
+xdotool key ctrl+v
+
+exit 0

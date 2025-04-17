@@ -68,4 +68,4 @@ Developed by **Fábio Berbert de Paula**. For inquiries, please contact via [Lin
 
 ## License
 
-This project is licensed under the MIT License. See https://opensource.org/licenses/MIT for details.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.

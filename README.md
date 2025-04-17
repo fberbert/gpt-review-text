@@ -65,3 +65,7 @@ In any application (e.g., your web browser), write or open the text you want to 
 ## Author
 
 Developed by **Fábio Berbert de Paula**. For inquiries, please contact via [LinkedIn](https://www.linkedin.com/in/fabio-linux/) or email at [fberbert@gmail.com](mailto:fberbert@gmail.com).
+
+## License
+
+This project is licensed under the MIT License. See https://opensource.org/licenses/MIT for details.

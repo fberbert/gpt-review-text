@@ -53,3 +53,11 @@
  5. Make sure the new shortcut is enabled.
 
  Now, when you press **Super + R**, the script will run on the selected text.
+
+## How to Use
+
+In any application (e.g., your web browser), write or open the text you want to improve. Then:
+
+1. Select the text you wish to review.
+2. Press **Super+R** (Win + R) or your configured shortcut.
+3. The script will send the selected text to ChatGPT and automatically paste the improved version in place.

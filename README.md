@@ -61,3 +61,7 @@ In any application (e.g., your web browser), write or open the text you want to 
 1. Select the text you wish to review.
 2. Press **Super+R** (Win + R) or your configured shortcut.
 3. The script will send the selected text to ChatGPT and automatically paste the improved version in place.
+
+## Author
+
+Developed by **Fábio Berbert de Paula**. For inquiries, please contact via [LinkedIn](https://www.linkedin.com/in/fabio-linux/) or email at [fberbert@gmail.com](mailto:fberbert@gmail.com).
